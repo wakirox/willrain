@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Piove domani?</string>
+    <string name="yes">sì</string>
+    <string name="no">no</string>
+    <string name="rain_string">Piove domani a %s?</string>
+    <string name="app_label">Cerca città</string>
+    <string name="search_hint">roma</string>
+</resources>

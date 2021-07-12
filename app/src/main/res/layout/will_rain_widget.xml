@@ -1,0 +1,33 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    android:padding="@dimen/widget_margin"
+    android:theme="@style/ThemeOverlay.WillRain.AppWidgetContainer">
+
+    <TextView
+        android:id="@+id/appwidget_text_title"
+        android:padding="2dp"
+        android:textSize="12sp"
+        android:text="It rains tomorrow in Rome?"
+        android:textColor="@color/foreground"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:id="@+id/appwidget_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/appwidget_text_title"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginEnd="2dp"
+        android:layout_marginBottom="2dp"
+        android:contentDescription="@string/appwidget_text"
+        android:text="@string/appwidget_text"
+        android:textAllCaps="true"
+        android:textColor="@color/foreground"
+        android:textSize="24sp"
+        android:textStyle="bold" />
+</RelativeLayout>

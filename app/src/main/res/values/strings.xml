@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">It rains tomorrow?</string>
+    <string name="rain_string">It rains tomorrow in %s?</string>
+    <string name="yes">yes</string>
+    <string name="no">no</string>
+    <string name="appwidget_text" translatable="false">YES</string>
+    <string name="add_widget" translatable="false">Add widget</string>
+    <string name="app_label">Search city</string>
+    <string name="search_hint">roma</string>
+</resources>
