@@ -1,7 +1,7 @@
 package app.wakirox.willrain.domain
 
-import android.app.Activity
 import android.content.Context
+import java.util.*
 
 object DomainController {
 
@@ -12,10 +12,11 @@ object DomainController {
 
     fun saveCity(context: Context, city : String){
         context.getSharedPreferences("V1",Context.MODE_PRIVATE)?.edit()?.apply {
-            putString("city",city)
+            putString("city",city.replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString() })
             apply()
         }
     }
+
 
 
 }

@@ -6,5 +6,6 @@
     <string name="appwidget_text" translatable="false">YES</string>
     <string name="add_widget" translatable="false">Add widget</string>
     <string name="app_label">Search city</string>
-    <string name="search_hint">roma</string>
+    <string name="search_hint">Rome</string>
+    <string name="search">Search</string>
 </resources>
