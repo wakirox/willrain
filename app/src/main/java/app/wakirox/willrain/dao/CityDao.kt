@@ -10,16 +10,16 @@ import app.wakirox.willrain.model.CityEntity
 @Dao
 interface CityDao {
 
-    @Query("select * from city_table order by city desc")
+    @Query("select * from cities order by city desc")
     fun getAllCities() : List<CityEntity>
 
-    @Query("select city, country, geoId as _id from city_table order by city desc")
+    @Query("select city, state, cityAlternative, id as _id from cities order by city desc")
     fun getAllCitiesCursor(): Cursor
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insert(word: CityEntity)
 
-    @Query("""select * from city_table where city LIKE '%' || :cityName || '%' order by city desc limit 10""")
+    @Query("""select * from cities where city LIKE '%' || :cityName || '%' order by city desc limit 10""")
     fun getCities(cityName : String) : List<CityEntity>
 
 }

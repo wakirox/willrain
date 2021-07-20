@@ -16,7 +16,7 @@ abstract class CityRoomDatabase : RoomDatabase() {
    abstract fun cityDao(): CityDao
 
    companion object {
-       private const val DATABASE_NAME = "worldcities"
+       private const val DATABASE_NAME = "cities"
         // Singleton prevents multiple instances of database opening at the
         // same time. 
         @Volatile
@@ -30,7 +30,7 @@ abstract class CityRoomDatabase : RoomDatabase() {
                         context.applicationContext,
                         CityRoomDatabase::class.java,
                     DATABASE_NAME
-                    ).fallbackToDestructiveMigration().createFromAsset("db/$DATABASE_NAME.sql").allowMainThreadQueries().build()
+                    ).fallbackToDestructiveMigration().createFromAsset("db/$DATABASE_NAME.sqlite").allowMainThreadQueries().build()
                 INSTANCE = instance
                 // return instance
                 instance

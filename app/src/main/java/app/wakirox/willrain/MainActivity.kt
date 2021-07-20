@@ -70,7 +70,7 @@ class MainActivity : AppCompatActivity() {
                 context,
                 android.R.layout.simple_list_item_2,
                 viewmodel.cityCursor(),
-                arrayOf("city", "country"),
+                arrayOf("city", "state"),
                 intArrayOf(android.R.id.text1, android.R.id.text2),
                 CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER
             )
