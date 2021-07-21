@@ -2,11 +2,15 @@ package app.wakirox.willrain
 
 import android.app.SearchManager
 import android.content.Context
+import android.content.Context.*
 import android.content.Intent
+import android.database.Cursor
+import android.database.MatrixCursor
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.CursorAdapter
+import android.widget.FilterQueryProvider
 import android.widget.SearchView
 import android.widget.SimpleCursorAdapter
 import androidx.activity.viewModels
@@ -30,6 +34,19 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
 
+
+        // Verify the action and get the query
+        if (Intent.ACTION_SEARCH == intent.action) {
+            intent.getStringExtra(SearchManager.QUERY)?.also { query ->
+                doMySearch(query)
+            }
+        }
+        if (Intent.ACTION_VIEW == intent.action) {
+                //a suggestion was clicked... do something about it...
+            intent.getStringExtra(SearchManager.QUERY)?.also { query ->
+                doMySearch(query)
+            }
+            }
 
         viewmodel.getData().observe(this){
             binding.tvResult.text = if(it.list[1].weather.any { w -> w.main.equals("Rain",true) } )
@@ -67,31 +84,36 @@ class MainActivity : AppCompatActivity() {
         (menu.findItem(R.id.search).actionView as SearchView).apply {
             // Assumes current activity is the searchable activity
             suggestionsAdapter = SimpleCursorAdapter(
-                context,
+                this@MainActivity,
                 android.R.layout.simple_list_item_2,
                 viewmodel.cityCursor(),
-                arrayOf("city", "state"),
+                arrayOf("city","state"),
                 intArrayOf(android.R.id.text1, android.R.id.text2),
                 CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER
             )
-            isSubmitButtonEnabled = true
-            setSearchableInfo(searchManager.getSearchableInfo(componentName))
+
+            suggestionsAdapter.filterQueryProvider = FilterQueryProvider {
+                    constraint -> viewmodel.cityCursor(constraint.toString())
+            }
+
             isIconifiedByDefault = false // Do not iconify the widget; expand it by default
         }
 
         return true
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if(item.itemId == R.id.search){
-            onSearchRequested()
-            return true
+    fun getCursorFromList(people: List<Pair<Int,String>>): Cursor {
+        val cursor = MatrixCursor(arrayOf("_id", "name"))
+        for (person in people) {
+            cursor.newRow()
+                .add("_id", person.first)
+                .add("name", person.second)
         }
-        return super.onOptionsItemSelected(item)
+        return cursor
     }
 
     private fun doMySearch(query: String) {
-        DomainController.saveCity(this,query)
+        DomainController.saveCity(this, query)
         refreshActivity()
     }
 

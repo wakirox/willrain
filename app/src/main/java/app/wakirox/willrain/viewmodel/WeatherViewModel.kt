@@ -4,6 +4,7 @@ import android.app.Application
 import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
+import app.wakirox.willrain.R
 import app.wakirox.willrain.domain.DomainController
 import app.wakirox.willrain.model.CityEntity
 import app.wakirox.willrain.model.WeatherResult
@@ -41,6 +42,7 @@ class WeatherViewModel @Inject constructor(
     }
 
     fun cityCursor() = cityRepository.cursor()
+    fun cityCursor(query : String) = cityRepository.cursorFilter(query)
 
     fun getData() = weatherData
     fun getCities(filter : String) = cityRepository.cities(filter)

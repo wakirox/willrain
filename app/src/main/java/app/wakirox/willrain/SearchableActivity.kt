@@ -3,6 +3,8 @@ package app.wakirox.willrain
 import android.app.SearchManager
 import android.content.Context
 import android.content.Intent
+import android.database.Cursor
+import android.database.MatrixCursor
 import android.os.Bundle
 import android.view.Menu
 import android.widget.CursorAdapter
@@ -13,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity
 import app.wakirox.willrain.domain.DomainController
 import app.wakirox.willrain.viewmodel.WeatherViewModel
 import dagger.hilt.android.AndroidEntryPoint
+
 
 @AndroidEntryPoint
 class SearchableActivity : AppCompatActivity() {
@@ -29,6 +32,8 @@ class SearchableActivity : AppCompatActivity() {
                 doMySearch(query)
             }
         }
+
+
 
     }
 
@@ -49,9 +54,9 @@ class SearchableActivity : AppCompatActivity() {
             suggestionsAdapter = SimpleCursorAdapter(
                 this@SearchableActivity,
                 android.R.layout.simple_list_item_2,
-                viewmodel.cityCursor(),
-                arrayOf("city"),
-                intArrayOf(android.R.id.text1, android.R.id.text2),
+                getCursorFromList(listOf(1 to "Rome",2 to "Milan")),
+                arrayOf("name"),
+                intArrayOf(android.R.id.text1),
                 CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER
             )
             isSubmitButtonEnabled = true
@@ -60,5 +65,15 @@ class SearchableActivity : AppCompatActivity() {
         }
 
         return true
+    }
+
+    fun getCursorFromList(people: List<Pair<Int,String>>): Cursor {
+        val cursor = MatrixCursor(arrayOf("_id", "name"))
+        for (person in people) {
+            cursor.newRow()
+                .add("_id", person.first)
+                .add("name", person.second)
+        }
+        return cursor
     }
 }

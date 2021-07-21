@@ -16,4 +16,6 @@ class CityRepository @Inject constructor(private val cityDao: CityDao) {
 
     fun cursor() = cityDao.getAllCitiesCursor()
 
+    fun cursorFilter(query : String) = cityDao.getCitiesCursor(query)
+
 }
