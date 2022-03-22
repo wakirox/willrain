@@ -1,7 +1,5 @@
 package app.wakirox.willrain.repository
 
-import android.content.Context
-import app.wakirox.willrain.R
 import app.wakirox.willrain.dao.CityDao
 import app.wakirox.willrain.model.CityEntity
 import javax.inject.Inject

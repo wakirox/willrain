@@ -1,5 +1,6 @@
 package app.wakirox.willrain.api
 
+import app.wakirox.willrain.domain.DomainController
 import app.wakirox.willrain.model.WeatherResult
 import retrofit2.Call
 import retrofit2.http.GET
@@ -9,6 +10,9 @@ import retrofit2.http.Query
 
 interface WeatherAPI {
 
-    @GET("forecast/daily?cnt=2&appid=42be7c9e87de3817f8a681137754c6f9")
+    @GET("forecast/daily?cnt=2&appid=${DomainController.API_KEY}")
     suspend fun dayData(@Query("q") cityName : String) : WeatherResult
+
+    @GET("forecast/daily?cnt={2}&appid=${DomainController.API_KEY}")
+    suspend fun dayDataCoords(@Query("lat") lat : String, @Query("lon") lon : String) : WeatherResult
 }

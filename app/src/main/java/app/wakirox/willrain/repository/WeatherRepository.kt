@@ -1,13 +1,23 @@
 package app.wakirox.willrain.repository
 
 import app.wakirox.willrain.api.WeatherAPI
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Inject
 
+
 class WeatherRepository @Inject constructor() {
 
+    private var client = OkHttpClient.Builder().addInterceptor(
+        HttpLoggingInterceptor().apply {
+            level = HttpLoggingInterceptor.Level.BODY
+        }
+    ).build()
+
     private var retrofit = Retrofit.Builder()
+        .client(client)
         .baseUrl("https://api.openweathermap.org/data/2.5/")
         .addConverterFactory(GsonConverterFactory.create())
         .build()

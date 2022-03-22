@@ -52,8 +52,8 @@ class WeatherViewModel @Inject constructor(
             try {
                 weatherData.postValue(repository.getData(city))
             }catch (e : Exception){
-                DomainController.saveCity(getApplication(),"Rome")
-                weatherData.postValue(repository.getData("Rome"))
+                DomainController.saveCity(getApplication(),"Rome,it")
+                weatherData.postValue(repository.getData("Rome,it"))
             }
 
         }

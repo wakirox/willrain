@@ -13,7 +13,7 @@ interface CityDao {
     @Query("select * from cities order by city desc")
     fun getAllCities() : List<CityEntity>
 
-    @Query("select city, state, cityAlternative, id as _id from cities order by city desc")
+    @Query("select city, state, cityAlternative, id as _id, coords from cities order by city desc")
     fun getAllCitiesCursor(): Cursor
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
