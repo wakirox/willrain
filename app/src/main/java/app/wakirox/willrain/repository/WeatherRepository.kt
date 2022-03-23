@@ -26,8 +26,6 @@ class WeatherRepository @Inject constructor() {
     private var service: WeatherAPI = retrofit.create(WeatherAPI::class.java)
 
     //todo create database to cache data for today
-    suspend fun getData(city: CityEntity, lang : String) = city.coords?.split(",")?.let {
-        service.dayDataCoords(it[0], it[1], lang)
-    } ?: service.dayData(city.city)
+    suspend fun getData(city: CityEntity, lang : String) = service.dayData(city.city.let { city.countryCode?.takeIf { it.isNotEmpty() }?.let { "${city.city},${it}" } ?: city.city }, lang)
 
 }
