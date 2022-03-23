@@ -1,6 +1,8 @@
 package app.wakirox.willrain
 
 import android.app.SearchManager
+import android.appwidget.AppWidgetManager
+import android.content.ComponentName
 import android.content.Context
 import android.content.Context.*
 import android.content.Intent
@@ -17,6 +19,7 @@ import androidx.appcompat.app.AppCompatActivity
 import app.wakirox.willrain.databinding.ActivityMainBinding
 import app.wakirox.willrain.domain.DomainController
 import app.wakirox.willrain.viewmodel.WeatherViewModel
+import app.wakirox.willrain.wiget.WillRainWidget
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -46,7 +49,19 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+        viewmodel.currentCity.observe(this){
+            binding.cityTitle.text = String.format(
+                getString(R.string.rain_string),
+                it
+            )
+        }
+
         viewmodel.getData().observe(this) {
+
+            DomainController.saveCityString(this,it.city.name)
+            viewmodel.currentCity.postValue(it.city.name)
+
+            updateWidget()
             binding.tvResultToday.text =
                 if (it.list[0].weather.any { w -> w.main.equals("Rain", true) })
                     getString(R.string.yes)
@@ -63,18 +78,22 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    private fun updateWidget() {
+        val intent = Intent(this, WillRainWidget::class.java)
+        intent.action = AppWidgetManager.ACTION_APPWIDGET_UPDATE
+        val ids: IntArray = AppWidgetManager.getInstance(application)
+            .getAppWidgetIds(ComponentName(application, WillRainWidget::class.java))
+        intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, ids)
+        sendBroadcast(intent)
+    }
+
     override fun onResume() {
         super.onResume()
         refreshActivity()
     }
 
     private fun refreshActivity() {
-        supportActionBar?.title = String.format(
-            getString(R.string.rain_string),
-            DomainController.city(this)
-        )
-
-        viewmodel.loadData()
+        viewmodel.loadData(lang = getString(R.string.lang))
     }
 
     override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
@@ -85,14 +104,15 @@ class MainActivity : AppCompatActivity() {
 
             setOnSuggestionListener(object : SearchView.OnSuggestionListener {
                 override fun onSuggestionSelect(position: Int): Boolean {
-                    return false
+                    return true
                 }
 
                 override fun onSuggestionClick(position: Int): Boolean {
                     val cursor = suggestionsAdapter.getItem(position) as Cursor
-                    val txt = cursor.getString(cursor.getColumnIndex("city"))
-                    viewmodel.loadData(txt)
-                    return false
+                    val city = cursor.getString(cursor.getColumnIndexOrThrow("city"))
+                    val state = cursor.getString(cursor.getColumnIndexOrThrow("state"))
+                    viewmodel.loadData(city,state, getString(R.string.lang))
+                    return true
 
 
                 }
@@ -141,7 +161,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun doMySearch(query: String) {
-        DomainController.saveCity(this, query)
+        //DomainController.saveCity(this, query)
         refreshActivity()
     }
 

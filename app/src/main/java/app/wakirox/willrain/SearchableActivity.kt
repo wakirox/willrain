@@ -42,7 +42,7 @@ class SearchableActivity : AppCompatActivity() {
 
     }
     private fun doMySearch(query : String){
-        DomainController.saveCity(this,query)
+        //DomainController.saveCity(this,query)
         finish()
     }
 

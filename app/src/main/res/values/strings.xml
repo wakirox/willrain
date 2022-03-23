@@ -1,4 +1,5 @@
 <resources>
+    <string name="lang">en</string>
     <string name="app_name">It rains?</string>
     <string name="rain_string">It rains today in %s?</string>
     <string name="yes">yes</string>
@@ -10,4 +11,5 @@
     <string name="search">Search</string>
     <string name="no_result">No result found for your search</string>
     <string name="and_tomorrow">And tomorrow?</string>
+    <string name="city_name">City name</string>
 </resources>

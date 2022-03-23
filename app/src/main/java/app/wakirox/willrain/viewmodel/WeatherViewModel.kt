@@ -4,6 +4,7 @@ import android.app.Application
 import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import app.wakirox.willrain.R
 import app.wakirox.willrain.domain.DomainController
 import app.wakirox.willrain.model.CityEntity
@@ -27,11 +28,11 @@ class WeatherViewModel @Inject constructor(
 ) : AndroidViewModel(application) {
 
     private val dispatchers: CoroutineContext = Dispatchers.IO
-    var coroutineScope: CoroutineScope = CoroutineScope(dispatchers + SupervisorJob())
+    private var coroutineScope: CoroutineScope = CoroutineScope(dispatchers + SupervisorJob())
 
-    private val weatherData by lazy {
-        MutableLiveData<WeatherResult>().also { loadData() }
-    }
+    private val weatherData = MutableLiveData<WeatherResult>()
+
+    val currentCity = MutableLiveData<String>()
 
     private val cityList by lazy {
         MutableLiveData<List<CityEntity>>().also {
@@ -47,13 +48,21 @@ class WeatherViewModel @Inject constructor(
     fun getData() = weatherData
     fun getCities(filter : String) = cityRepository.cities(filter)
 
-    fun loadData(city : String = DomainController.city(getApplication())) {
+    fun loadData(city : String, state : String, lang : String){
+        cityRepository.cityByState(city,state).first().let {
+            loadData(it, lang)
+        }
+    }
+
+    fun loadData(city : CityEntity = DomainController.city(getApplication()), lang : String) {
+
         coroutineScope.launch {
             try {
-                weatherData.postValue(repository.getData(city))
+                DomainController.saveCity(getApplication(), city)
+                weatherData.postValue(repository.getData(city, lang))
             }catch (e : Exception){
-                DomainController.saveCity(getApplication(),"Rome,it")
-                weatherData.postValue(repository.getData("Rome,it"))
+                DomainController.saveCity(getApplication(), CityEntity.default)
+                weatherData.postValue(repository.getData(CityEntity.default, lang))
             }
 
         }

@@ -11,6 +11,8 @@ class CityRepository @Inject constructor(private val cityDao: CityDao) {
         return query?.let { cityDao.getCities(query) } ?: cityDao.getAllCities()
     }
 
+    fun cityByState(city : String, state : String) = cityDao.getCityByState(city,state)
+
 
     fun cursor() = cityDao.getAllCitiesCursor()
 

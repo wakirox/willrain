@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Azi plouă?</string>
+    <string name="lang">ro</string>
+    <string name="app_name">Plouă?</string>
     <string name="yes">da</string>
     <string name="no">nu</string>
     <string name="rain_string">Azi plouă in %s?</string>
-    <string name="app_label">"Caută orașul "</string>
+    <string name="app_label">Caută orașul</string>
     <string name="search_hint">Roma</string>
     <string name="search">Caută</string>
     <string name="no_result">Nici un resultat gasit</string>
     <string name="and_tomorrow">Si maine?</string>
+    <string name="city_name">Numele orașului</string>
 </resources>

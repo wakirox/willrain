@@ -21,4 +21,11 @@ data class CityEntity(
     val population : Int?,
     val timezone : String?,
     val coords : String?
-    )
+    ){
+
+
+    companion object {
+        val default = CityEntity(0,"Roma","Roma","Roma","Italy",2318895,"Europe/Rome","41.89193,12.51133")
+    }
+
+}

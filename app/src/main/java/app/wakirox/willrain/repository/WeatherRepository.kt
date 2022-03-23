@@ -1,6 +1,7 @@
 package app.wakirox.willrain.repository
 
 import app.wakirox.willrain.api.WeatherAPI
+import app.wakirox.willrain.model.CityEntity
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -25,6 +26,8 @@ class WeatherRepository @Inject constructor() {
     private var service: WeatherAPI = retrofit.create(WeatherAPI::class.java)
 
     //todo create database to cache data for today
-    suspend fun getData(city : String) = service.dayData(city)
+    suspend fun getData(city: CityEntity, lang : String) = city.coords?.split(",")?.let {
+        service.dayDataCoords(it[0], it[1], lang)
+    } ?: service.dayData(city.city)
 
 }
