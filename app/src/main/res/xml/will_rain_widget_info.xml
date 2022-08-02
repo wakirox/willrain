@@ -2,10 +2,15 @@
 <appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
     android:initialKeyguardLayout="@layout/will_rain_widget"
     android:initialLayout="@layout/will_rain_widget"
-    android:minWidth="90dp"
-    android:minHeight="90dp"
+    android:minWidth="130dp"
+    android:maxResizeHeight="220dp"
     android:targetCellWidth="2"
     android:targetCellHeight="2"
     android:previewImage="@drawable/widget"
     android:updatePeriodMillis="3600000"
     android:widgetCategory="home_screen" />
+
+<!--
+    android:resizeMode="vertical"-->
+<!--    android:minResizeHeight="102dp"-->
+<!--    android:maxResizeHeight="220dp"-->

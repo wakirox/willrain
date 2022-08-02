@@ -9,8 +9,8 @@
     android:orientation="vertical"
     android:padding="@dimen/widget_margin"
     android:theme="@style/ThemeOverlay.WillRain.AppWidgetContainer"
-    tools:layout_height="250dp"
-    tools:layout_width="180dp">
+    tools:layout_height="220dp"
+    tools:layout_width="130dp">
 
     <TextView
         android:textAllCaps = "true"
@@ -114,7 +114,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:padding="2dp"
-        tools:text="Aggiornato 02/08-13:29"
+        tools:text="13:29"
         android:textColor="@color/primary" />
 
         <ImageView

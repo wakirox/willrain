@@ -6,7 +6,8 @@ import android.appwidget.AppWidgetProvider
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
-import android.os.Build
+import android.os.Bundle
+import android.util.SizeF
 import android.widget.RemoteViews
 import app.wakirox.rainy.MainActivity
 import app.wakirox.rainy.R
@@ -20,6 +21,7 @@ import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.*
 
+
 private const val ACTION_UPDATE = "action.UPDATE"
 
 /**
@@ -28,6 +30,7 @@ private const val ACTION_UPDATE = "action.UPDATE"
 class WillRainWidget : AppWidgetProvider() {
 
     private val repository = WeatherRepository()
+    private var isSmallLayout = false
 
     override fun onUpdate(
         context: Context,
@@ -61,6 +64,9 @@ class WillRainWidget : AppWidgetProvider() {
 
     }
 
+
+    // Creates the RemoteViews for the given size.
+
     private var result : WeatherResult? = null
 
    @OptIn(DelicateCoroutinesApi::class)
@@ -70,19 +76,42 @@ class WillRainWidget : AppWidgetProvider() {
         appWidgetId: Int
     ) {
        result?.let {
-           render(it, context, appWidgetManager, appWidgetId)
+           render(it, context, appWidgetManager, appWidgetId, isSmallLayout)
        }
        GlobalScope.launch(Unconfined) {
            val city = DomainController.city(context)
            repository.getData(city, lang = context.getString(R.string.lang)).let {
                result = it
-               render(it, context, appWidgetManager, appWidgetId)
+               render(it, context, appWidgetManager, appWidgetId, isSmallLayout)
            }
-
        }
 
 
     }
+
+    @OptIn(DelicateCoroutinesApi::class)
+    override fun onAppWidgetOptionsChanged(
+        context: Context,
+        appWidgetManager: AppWidgetManager,
+        id: Int,
+        newOptions: Bundle?
+    ) {
+        val minHeight = newOptions!!.getInt(AppWidgetManager.OPTION_APPWIDGET_MIN_HEIGHT)
+        isSmallLayout = minHeight < 100
+        result?.let {
+            render(it, context, appWidgetManager, id, isSmallLayout)
+        } ?: kotlin.run {
+            GlobalScope.launch(Unconfined) {
+                val city = DomainController.city(context)
+                repository.getData(city, lang = context.getString(R.string.lang)).let {
+                    result = it
+                    render(it, context, appWidgetManager, id, isSmallLayout)
+                }
+            }
+        }
+
+    }
+
     private fun getPendingSelfIntent(context: Context, action: String): PendingIntent? {
         val intent =
             Intent(context, javaClass) // An intent directed at the current class (the "self").
@@ -93,7 +122,8 @@ class WillRainWidget : AppWidgetProvider() {
         it: WeatherResult,
         context: Context,
         appWidgetManager: AppWidgetManager,
-        appWidgetId: Int
+        appWidgetId: Int,
+        isSmallLayout: Boolean
     ) {
         val rainToday =
             if (it.itRainsToday)
@@ -107,20 +137,10 @@ class WillRainWidget : AppWidgetProvider() {
             else
                 R.drawable.ic_weather_ok
 
-        val rainTomorrow =
-            if (it.list[1].weather.any { w -> w.main.equals("Rain", true) })
-                context.getString(R.string.yes)
-            else
-                context.getString(R.string.no)
 
-        val tomorrowDrawable =
-            if (it.list[1].weather.any { w -> w.main.equals("Rain", true) })
-                R.drawable.ic_weather_ko
-            else
-                R.drawable.ic_weather_ok
 
         // Construct the RemoteViews object
-        val views = RemoteViews(context.packageName, R.layout.will_rain_widget)
+        val views = RemoteViews(context.packageName, if(isSmallLayout) R.layout.will_rain_widget_small else R.layout.will_rain_widget)
 
         views.setTextViewText(
             R.id.appwidget_text_title, String.format(
@@ -128,14 +148,28 @@ class WillRainWidget : AppWidgetProvider() {
                 DomainController.cityString(context)
             )
         )
-        views.setInt(R.id.today_image, "setImageResource", todayDrawable)
-        views.setInt(R.id.tomorrow_image, "setImageResource", tomorrowDrawable)
-
-        views.setTextViewText(R.id.update_text, Date().dateToString("HH:mm"))
-
 
         views.setTextViewText(R.id.appwidget_text, rainToday)
-        views.setTextViewText(R.id.appwidget_text_tommorow, rainTomorrow)
+        views.setInt(R.id.today_image, "setImageResource", todayDrawable)
+        views.setTextViewText(R.id.update_text, Date().dateToString("HH:mm"))
+
+        if(!isSmallLayout) {
+
+            val rainTomorrow =
+                if (it.list[1].weather.any { w -> w.main.equals("Rain", true) })
+                    context.getString(R.string.yes)
+                else
+                    context.getString(R.string.no)
+
+            val tomorrowDrawable =
+                if (it.list[1].weather.any { w -> w.main.equals("Rain", true) })
+                    R.drawable.ic_weather_ko
+                else
+                    R.drawable.ic_weather_ok
+
+            views.setInt(R.id.tomorrow_image, "setImageResource", tomorrowDrawable)
+            views.setTextViewText(R.id.appwidget_text_tommorow, rainTomorrow)
+        }
 
         val intent = Intent(context, MainActivity::class.java)
         val pendingIntent =

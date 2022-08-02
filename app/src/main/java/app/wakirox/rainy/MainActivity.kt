@@ -9,6 +9,7 @@ import android.database.Cursor
 import android.database.MatrixCursor
 import android.os.Bundle
 import android.view.Menu
+import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.activity.viewModels
@@ -59,6 +60,9 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+        binding.svRoot.visibility = View.GONE
+        binding.progressBar.visibility = View.VISIBLE
+
         viewmodel.currentCity.observe(this){
             binding.cityTitle.text = String.format(
                 getString(R.string.rain_string),
@@ -98,6 +102,9 @@ class MainActivity : AppCompatActivity() {
 
             binding.todayImageMain.setImageResource(todayDrawable)
             binding.tomorrowImageMain.setImageResource(tomorrowDrawable)
+
+            binding.svRoot.visibility = View.VISIBLE
+            binding.progressBar.visibility = View.GONE
         }
 
 
