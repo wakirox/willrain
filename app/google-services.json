@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "655192167222",
+    "project_id": "rainy-25322",
+    "storage_bucket": "rainy-25322.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:655192167222:android:be04849b20bb6485fa9997",
+        "android_client_info": {
+          "package_name": "app.wakirox.rainy"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "655192167222-4mfe4jfjumn208u2d1f5dsmi4lr71648.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAsUdcrySMcoOe-QGrlvV1MAdaHACd4-BQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "655192167222-4mfe4jfjumn208u2d1f5dsmi4lr71648.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

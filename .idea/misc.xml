@@ -3,13 +3,27 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="../../../../layout/compose-model-1659380692465.xml" value="0.3990740740740741" />
+        <entry key="../../../../layout/compose-model-1659380922472.xml" value="0.25" />
+        <entry key="../../../../layout/compose-model-1659382158668.xml" value="0.2353113983548766" />
+        <entry key="../../../../layout/compose-model-1659446673201.xml" value="0.278343949044586" />
+        <entry key="../../../../layout/compose-model-1659448096799.xml" value="0.278343949044586" />
         <entry key="..\:/Users/wakir/AndroidStudioProjects/WillRain/app/src/main/res/layout/activity_main.xml" value="0.3880208333333333" />
         <entry key="..\:/Users/wakir/AndroidStudioProjects/WillRain/app/src/main/res/layout/will_rain_widget.xml" value="0.31447868298860276" />
         <entry key="..\:/Users/wakir/AndroidStudioProjects/WillRain/app/src/main/res/menu/menu.xml" value="1.3416666666666666" />
+        <entry key="app/src/main/res/drawable/ic_launcher_foreground.xml" value="0.1285" />
+        <entry key="app/src/main/res/drawable/ic_weather_ko.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/ic_weather_ok.xml" value="0.179" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.3133971291866029" />
+        <entry key="app/src/main/res/layout/activity_searchable_base.xml" value="0.36666666666666664" />
+        <entry key="app/src/main/res/layout/search_item.xml" value="0.36666666666666664" />
+        <entry key="app/src/main/res/layout/will_rain_widget.xml" value="0.67" />
+        <entry key="app/src/main/res/menu/menu.xml" value="0.4078125" />
+        <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.18" />
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

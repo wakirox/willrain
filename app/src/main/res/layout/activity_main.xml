@@ -1,63 +1,109 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/background"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="20dp"
-    android:background="@color/background"
-    tools:context=".MainActivity">
+    >
 
-
-    <TextView
-        android:id="@+id/city_title"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textAllCaps="true"
-        android:textColor="@color/foreground"
-        android:textSize="60sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="Piove oggi a Roma?" />
+        android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/tv_result_today"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="20dp"
+            tools:context=".MainActivity">
+
+            <TextView
+                android:id="@+id/city_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="start|center"
+                android:textAllCaps="true"
+                android:textColor="@color/primary"
+                android:textSize="50sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Piove oggi a Roma?" />
+
+            <ImageView
+                android:id="@+id/today_image_main"
+                android:layout_width="160dp"
+                android:layout_height="160dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/ic_weather_ko"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/city_title" />
+
+            <TextView
+                android:id="@+id/tv_result_today"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="-50dp"
+                android:gravity="bottom"
+                android:textAllCaps="true"
+                android:textColor="@color/secondary"
+                android:textSize="110sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/today_image_main"
+                app:layout_constraintStart_toEndOf="@+id/today_image_main"
+                tools:text="@string/yes" />
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="start|center"
+                android:text="@string/and_tomorrow"
+                android:textAllCaps="true"
+                android:textColor="@color/primary"
+                android:textSize="40sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/today_image_main" />
+
+            <ImageView
+                android:id="@+id/tomorrow_image_main"
+                android:layout_width="160dp"
+                android:layout_height="160dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/ic_weather_ok"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+            <TextView
+                android:id="@+id/tv_result_tomorrow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="-50dp"
+                android:gravity="bottom"
+                android:text="NO"
+                android:textAllCaps="true"
+                android:textColor="@color/secondary"
+                android:textSize="110sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/tomorrow_image_main"
+                app:layout_constraintStart_toEndOf="@+id/tomorrow_image_main" />
+
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+    <com.google.android.gms.ads.AdView
+        android:layout_gravity="bottom|center"
+        android:id="@+id/adView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAllCaps="true"
-        android:textColor="@color/foreground"
-        android:textSize="160sp"
-        android:textStyle="bold"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/city_title"
-        tools:text="@string/yes" />
+        ads:adSize="BANNER"
+        ads:adUnitId="@string/pub_id_banner">
+    </com.google.android.gms.ads.AdView>
 
-    <TextView
-        android:textAllCaps="true"
-        android:textColor="@color/foreground"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="37dp"
-        android:text="@string/and_tomorrow"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_result_today" />
+</FrameLayout>
 
-    <TextView
-        android:textAllCaps="true"
-    android:textColor="@color/foreground"
-    android:textSize="80sp"
-    android:textStyle="bold"
-        android:id="@+id/tv_result_tomorrow"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="NO"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
-
-</androidx.constraintlayout.widget.ConstraintLayout>

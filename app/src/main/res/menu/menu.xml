@@ -3,6 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:id="@+id/search"
         android:icon="@drawable/ic_search"
+        app:iconTint="@color/primary"
         android:title="@string/search"
         android:tooltipText="@string/city_name"
         app:actionViewClass="android.widget.SearchView"

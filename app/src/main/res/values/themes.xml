@@ -4,8 +4,9 @@
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/background</item>
         <item name="colorPrimaryDark">@color/background</item>
-        <item name="colorAccent">@color/foreground</item>
-        <item name="titleTextColor">@color/foreground</item>
+        <item name="colorAccent">@color/primary</item>
+        <item name="titleTextColor">@color/primary</item>
+
         <!-- Customize your theme here. -->
     </style>
 
@@ -13,4 +14,6 @@
         <item name="appWidgetBackgroundColor">@color/light_blue_600</item>
         <item name="appWidgetTextColor">@color/light_blue_50</item>
     </style>
+
+
 </resources>

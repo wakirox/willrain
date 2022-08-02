@@ -1,66 +1,126 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ll_widget"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:id="@+id/ll_widget"
     android:background="@color/background"
+    android:orientation="vertical"
     android:padding="@dimen/widget_margin"
-    android:theme="@style/ThemeOverlay.WillRain.AppWidgetContainer">
+    android:theme="@style/ThemeOverlay.WillRain.AppWidgetContainer"
+    tools:layout_height="250dp"
+    tools:layout_width="180dp">
 
     <TextView
+        android:textAllCaps = "true"
         android:id="@+id/appwidget_text_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
         android:padding="2dp"
-        android:textSize="14sp"
-        android:textStyle="bold"
-        android:textAllCaps="true"
         android:text="@string/rain_string"
-        android:textColor="@color/foreground"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-
-    <TextView
-        android:layout_gravity="center"
-        android:id="@+id/appwidget_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="2dp"
-        android:layout_marginTop="2dp"
-        android:layout_marginEnd="2dp"
-        android:layout_marginBottom="2dp"
-        android:contentDescription="@string/appwidget_text"
-        android:text="@string/appwidget_text"
-        android:textAllCaps="true"
-        android:textColor="@color/foreground"
-        android:textSize="30sp"
-        android:textStyle="bold" />
-
-    <TextView
-        android:layout_gravity="end"
-        android:id="@+id/textView3"
-        android:padding="2dp"
+        android:textColor="@color/primary"
         android:textSize="14sp"
-        android:textStyle="bold"
-        android:textAllCaps="true"
-        android:text="@string/and_tomorrow"
-        android:textColor="@color/foreground"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-
-    <TextView
-        android:layout_gravity="start"
-        android:id="@+id/appwidget_text_tommorow"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="2dp"
-        android:layout_marginTop="2dp"
-        android:layout_marginEnd="2dp"
-        android:layout_marginBottom="2dp"
-        android:contentDescription="@string/appwidget_text"
-        android:text="NO"
-        android:textAllCaps="true"
-        android:textColor="@color/foreground"
-        android:textSize="26sp"
         android:textStyle="bold" />
 
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="horizontal">
 
+        <ImageView
+            android:id="@+id/today_image"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/ic_weather_ko"
+            app:tint="#2D4263" />
+
+        <TextView
+            android:textAllCaps = "true"
+            android:shadowColor="@color/black"
+            android:shadowDx="1"
+            android:shadowDy="1"
+            android:shadowRadius="2"
+            android:id="@+id/appwidget_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|end"
+            android:padding="5dp"
+            android:layout_marginLeft="-20dp"
+            android:text="@string/appwidget_text"
+            android:textColor="@color/secondary"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <TextView
+        android:textAllCaps = "true"
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start"
+        android:layout_weight="1"
+        android:padding="2dp"
+        android:text="@string/and_tomorrow"
+        android:textColor="@color/primary"
+        android:textSize="14sp"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/tomorrow_image"
+            app:tint="#2D4263"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/ic_weather_ok" />
+
+        <TextView
+            android:textAllCaps = "true"
+            android:shadowColor="@color/black"
+            android:shadowDx="1"
+            android:shadowDy="1"
+            android:shadowRadius="2"
+            android:id="@+id/appwidget_text_tommorow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="-20dp"
+            android:layout_gravity="center|end"
+            android:padding="5dp"
+            android:text="No"
+            android:textColor="@color/secondary"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+    <TextView
+        android:gravity="right"
+        android:textSize="11sp"
+        android:id="@+id/update_text"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:padding="2dp"
+        tools:text="Aggiornato 02/08-13:29"
+        android:textColor="@color/primary" />
+
+        <ImageView
+            android:id="@+id/btn_update"
+            android:src="@drawable/ic_refresh"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+</LinearLayout>
 </LinearLayout>
